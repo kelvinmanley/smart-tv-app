@@ -1,8 +1,9 @@
 import attempt from "@assertchris/attempt-promise";
+import axios from "axios";
 
 const FetchFeatureFlags = async (_req, res) => {
   const [error, response] = await attempt(
-    fetch(process.env.FEATURE_FLAG_ENDPOINT)
+    axios.get(process.env.FEATURE_FLAG_ENDPOINT)
   );
 
   if (error) {
@@ -11,8 +12,7 @@ const FetchFeatureFlags = async (_req, res) => {
       .json({ error: "Feature flag data could not be retrieved" });
   }
 
-  const data = await response.json();
-  return res.status(200).json(data.features);
+  return res.status(200).json(response.data.features);
 };
 
 export default FetchFeatureFlags;
