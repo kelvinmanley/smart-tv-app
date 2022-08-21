@@ -22,7 +22,9 @@ npm install
 
 <br>
 
-Then you can run these commands to start the development server:
+Before you run this application you'll need to create a `.env` file in the root folder and add the environment variables. Please request these directly from the developer.
+
+Once you've added the `.env` file you can run these commands to start the development server:
 
 ```bash
 yarn dev

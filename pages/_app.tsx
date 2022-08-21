@@ -1,8 +1,25 @@
-import '../styles/globals.css'
-import type { AppProps } from 'next/app'
+import "../styles/globals.css";
+import type { AppProps } from "next/app";
+import { GrowthBook, GrowthBookProvider } from "@growthbook/growthbook-react";
+import axios from "axios";
 
-function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
-}
+const growthbook = new GrowthBook();
 
-export default MyApp
+const setFlagData = async () => {
+  const response = await axios.get(
+    `${process.env.NEXT_PUBLIC_FEATURE_FLAG_CALL}`
+  );
+  growthbook.setFeatures(response.data);
+};
+
+const MyApp = ({ Component, pageProps }: AppProps) => {
+  setFlagData();
+
+  return (
+    <GrowthBookProvider growthbook={growthbook}>
+      <Component {...pageProps} />
+    </GrowthBookProvider>
+  );
+};
+
+export default MyApp;

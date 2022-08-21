@@ -1,10 +1,21 @@
 import type { NextPage } from "next";
-import Head from "next/head";
-import Image from "next/image";
-import styles from "../styles/Home.module.css";
+import { useFeature } from "@growthbook/growthbook-react";
+import { useEffect, useState } from "react";
+import WipHeading from "../components/wip-heading";
 
 const Home: NextPage = () => {
-  return <>Watch this space...</>;
+  const featureFlag = useFeature("access").on;
+  const [pageState, setPageState] = useState(false);
+
+  useEffect(() => {
+    setPageState(featureFlag);
+  }, [featureFlag]);
+
+  return pageState ? (
+    <>SHOW WORK</>
+  ) : (
+    <WipHeading>Watch this space...</WipHeading>
+  );
 };
 
 export default Home;
