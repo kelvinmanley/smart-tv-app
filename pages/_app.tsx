@@ -1,8 +1,23 @@
-import '../styles/globals.css'
-import type { AppProps } from 'next/app'
+import "../styles/globals.css";
+import type { AppProps } from "next/app";
+import { GrowthBook, GrowthBookProvider } from "@growthbook/growthbook-react";
 
-function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
-}
+const growthbook = new GrowthBook();
 
-export default MyApp
+const setFlagData = async () => {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_FEATURE_FLAG_CALL}`);
+  const flagData = await response.json();
+  growthbook.setFeatures(flagData);
+};
+
+const MyApp = ({ Component, pageProps }: AppProps) => {
+  setFlagData();
+
+  return (
+    <GrowthBookProvider growthbook={growthbook}>
+      <Component {...pageProps} />
+    </GrowthBookProvider>
+  );
+};
+
+export default MyApp;

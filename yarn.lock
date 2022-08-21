@@ -10,6 +10,11 @@
     "@jridgewell/gen-mapping" "^0.1.0"
     "@jridgewell/trace-mapping" "^0.3.9"
 
+"@assertchris/attempt-promise@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@assertchris/attempt-promise/-/attempt-promise-1.0.0.tgz#46717118e6f23dc140efa1a19597069e61fef735"
+  integrity sha512-r4RBXVTiPVTGcklvRWhEiGkso2OohqbWvlKHCg9a+Brm6I3ytFuhoT/8um1OIuFsjMg5JZ3dmjqm6tqbbIURdA==
+
 "@azu/format-text@^1.0.1":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@azu/format-text/-/format-text-1.0.1.tgz#6967350a94640f6b02855169bd897ce54d6cebe2"
@@ -520,6 +525,18 @@
     js-yaml "^4.1.0"
     minimatch "^3.1.2"
     strip-json-comments "^3.1.1"
+
+"@growthbook/growthbook-react@^0.9.1":
+  version "0.9.1"
+  resolved "https://registry.yarnpkg.com/@growthbook/growthbook-react/-/growthbook-react-0.9.1.tgz#a2600cea90307e44d12b7780ec8c64d6418d71f1"
+  integrity sha512-b4yaMkcIeYQ+j5wND+wsGHbeV33QJoG6vQc4r/7qTDKmq3QhAyMNuLvfy/bYQ/nWnh5TmZArzQ6IRUGTWKfOGg==
+  dependencies:
+    "@growthbook/growthbook" "^0.18.1"
+
+"@growthbook/growthbook@^0.18.1":
+  version "0.18.1"
+  resolved "https://registry.yarnpkg.com/@growthbook/growthbook/-/growthbook-0.18.1.tgz#1c8d09b95bd5573f6b06effd144a1e15ddfe6b55"
+  integrity sha512-hNNh515lleAUzTch+ezYYVHBteYTIAF1Xxh6+dLJk+BjbhPXUo6X9qNcryIN1b/IMLVnO1ZfE5zbAzVGEQai2w==
 
 "@humanwhocodes/config-array@^0.10.4":
   version "0.10.4"
