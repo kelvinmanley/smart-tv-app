@@ -1,7 +1,10 @@
-import { unsplash } from "../helpers";
 import attempt from "@assertchris/attempt-promise";
 
 const GetTopicPhotos = async (req, res) => {
+  const unsplash = createApi({
+    accessKey: process.env.UNSPLASH_ACCESS_KEY,
+  });
+
   const [error, response] = await attempt(
     unsplash.topics.getPhotos({
       topicIdOrSlug: req.query.topicIdOrSlug,

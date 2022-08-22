@@ -1,7 +1,10 @@
-import { unsplash } from "../helpers";
 import attempt from "@assertchris/attempt-promise";
 
 const GetTopics = async (req, res) => {
+  const unsplash = createApi({
+    accessKey: process.env.UNSPLASH_ACCESS_KEY,
+  });
+
   const [error, response] = await attempt(
     unsplash.topics.list({
       page: req.query.page,
