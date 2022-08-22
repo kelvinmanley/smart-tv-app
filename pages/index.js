@@ -2,7 +2,7 @@ import { useFeature } from "@growthbook/growthbook-react";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import * as UI from "../components";
-import { getTopics, getTopicPhotos } from "./helpers";
+import { getTopics, getTopicPhotos } from "./lib";
 
 const Home = () => {
   const featureFlag = useFeature("access").on;
