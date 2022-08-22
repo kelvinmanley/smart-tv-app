@@ -1,5 +1,5 @@
 import attempt from "@assertchris/attempt-promise";
-import { unsplash } from "../lib";
+import { unsplash } from "../../helpers";
 
 const GetTopics = async (req, res) => {
   const [error, response] = await attempt(
