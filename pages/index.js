@@ -59,6 +59,11 @@ const Home = () => {
   return pageState ? (
     <Comp.PageWrapper>
       <Comp.PageBackground mode={uiMode} />
+      <Comp.PageTitle
+        title="Smart TV App"
+        topic={displayedTopicState?.title}
+        mode={uiMode}
+      />
 
       {/* –––––––––––––– Central Navigation Bar –––––––––––––– */}
       <Comp.NavWrapper state={menuState}>
@@ -69,10 +74,7 @@ const Home = () => {
         >
           <UI.Arrow mode={uiMode} />
         </Comp.CircleButton>
-        <Comp.CircleButton
-          mode={uiMode}
-          onClick={() => setMenuState(!menuState)}
-        >
+        <Comp.CircleButton mode={uiMode} onClick={() => setMenuState(true)}>
           <UI.Menu mode={uiMode} />
         </Comp.CircleButton>
         <Comp.CircleButton mode={uiMode} onClick={() => setUiMode(!uiMode)}>

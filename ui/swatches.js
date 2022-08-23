@@ -26,4 +26,8 @@ const PageWrapperSwatch = {
   background: { light: Colors.LightGrey, dark: Colors.DarkestGrey },
 };
 
-export { CircleButtonSwatch, PageWrapperSwatch, Colors };
+const PageTitleSwatch = {
+  color: { light: Colors.DarkestGrey, dark: Colors.Grey },
+};
+
+export { CircleButtonSwatch, PageWrapperSwatch, PageTitleSwatch, Colors };
