@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { CircleButtonSwatch as Swatch } from "../ui";
 
 const CircleButton = styled.button`
+  cursor: pointer;
   background-color: ${({ mode }) =>
     mode ? Swatch.backgroundColor.light : Swatch.backgroundColor.dark};
   border-radius: 50%;

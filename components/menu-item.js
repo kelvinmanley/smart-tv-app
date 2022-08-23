@@ -10,6 +10,7 @@ const MenuItem = styled.div`
 
   :hover {
     border-left: 5px solid ${Colors.Orange};
+    cursor: pointer;
   }
 `;
 

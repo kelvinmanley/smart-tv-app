@@ -5,6 +5,7 @@ const ImageWrapper = styled.div`
   background-color: ${Colors.Grey};
   border: none;
   border-radius: 10px;
+  cursor: pointer;
   margin: 20px;
   overflow: hidden;
   height: 300px;

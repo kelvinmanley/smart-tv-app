@@ -12,6 +12,7 @@ import * as UI from "../ui";
 
 const Home = () => {
   const featureFlag = useFeature("access").on;
+
   const [pageState, setPageState] = useState(false);
   const [menuState, setMenuState] = useState(false);
   const [topicsState, setTopicsState] = useState();
@@ -50,6 +51,7 @@ const Home = () => {
     }
   }, [displayedTopicState]);
 
+  // useEffect used to manage the serverside rendering conflict
   useEffect(() => {
     setPageState(featureFlag);
   }, [featureFlag]);
@@ -57,6 +59,8 @@ const Home = () => {
   return pageState ? (
     <Comp.PageWrapper>
       <Comp.PageBackground mode={uiMode} />
+
+      {/* –––––––––––––– Central Navigation Bar –––––––––––––– */}
       <Comp.NavWrapper state={menuState}>
         <Comp.CircleButton
           mode={uiMode}
@@ -85,19 +89,33 @@ const Home = () => {
       {!topicsState ? (
         <>TODO: LOADING WHEEL</>
       ) : (
+        /* –––––––––––––– Menu Side Bar –––––––––––––– */
         <Comp.MenuWrapper mode={uiMode} state={menuState}>
           <Comp.MenuHeader
             mode={uiMode}
             handleClick={() => setMenuState(false)}
           />
-          {topicsState.map(({ title }, index) => (
-            <Comp.MenuItem key={index}>{title}</Comp.MenuItem>
+          {topicsState.map(({ title, slug }, index) => (
+            <Comp.MenuItem
+              key={index}
+              onClick={() => {
+                console.log(slug);
+                setDisplayedTopicState({
+                  slug,
+                  title,
+                });
+                setMenuState(false);
+              }}
+            >
+              {title}
+            </Comp.MenuItem>
           ))}
         </Comp.MenuWrapper>
       )}
       {!topicPhotosState ? (
         <>TODO: LOADING WHEEL</>
       ) : (
+        /* –––––––––––––– Image Gallery Grid –––––––––––––– */
         <Comp.GalleryWrapper>
           <Comp.GalleryInnerWrapper horizontalIndex={imagesColumnIndex}>
             {topicPhotosState.map(({ urls, description }, index) => (
@@ -107,6 +125,8 @@ const Home = () => {
                   alt={description || displayedTopicState.title}
                   layout="fill"
                   objectFit="cover"
+                  placeholder="blur"
+                  blurDataURL={urls.small}
                 />
               </Comp.ImageWrapper>
             ))}
@@ -115,6 +135,7 @@ const Home = () => {
       )}
     </Comp.PageWrapper>
   ) : (
+    /* –––––––––––––– Temporary Page –––––––––––––– */
     <Comp.WipHeading>Watch this space...</Comp.WipHeading>
   );
 };
