@@ -1,8 +1,9 @@
 import { useFeature } from "@growthbook/growthbook-react";
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import * as UI from "../components";
+import * as Comp from "../components";
 import { getTopics, getTopicPhotos } from "../helpers";
+import * as UI from "../ui";
 
 const Home = () => {
   const featureFlag = useFeature("access").on;
@@ -11,12 +12,13 @@ const Home = () => {
   const [topicsState, setTopicsState] = useState();
   const [displayedTopicState, setDisplayedTopicState] = useState();
   const [topicPhotosState, setTopicPhotosState] = useState();
+  const [uiMode, setUiMode] = useState(true);
 
   const topicsPage = 1;
   const topicsPerPage = 10;
 
   const topicPhotosPage = 1;
-  const topicPhotosPerPage = 10;
+  const topicPhotosPerPage = 20;
 
   // Start up actions
   useEffect(() => {
@@ -47,43 +49,57 @@ const Home = () => {
   }, [featureFlag]);
 
   return pageState ? (
-    <UI.PageWrapper>
-      <UI.NavWrapper>
-        <button>LEFT</button>
-        <button onClick={() => setMenuState(!menuState)}>MENU</button>
-        <button>RIGHT</button>
-      </UI.NavWrapper>
-      <UI.CloseButton>CLOSE</UI.CloseButton>
+    <Comp.PageWrapper>
+      <Comp.PageBackground mode={uiMode} />
+      <Comp.NavWrapper>
+        <Comp.CircleButton mode={uiMode}>
+          <UI.Arrow mode={uiMode} />
+        </Comp.CircleButton>
+        <Comp.CircleButton
+          mode={uiMode}
+          onClick={() => setMenuState(!menuState)}
+        >
+          <UI.Menu mode={uiMode} />
+        </Comp.CircleButton>
+        <Comp.CircleButton mode={uiMode} onClick={() => setUiMode(!uiMode)}>
+          <UI.LightBulb />
+        </Comp.CircleButton>
+        <Comp.CircleButton mode={uiMode}>
+          <UI.Arrow mode={uiMode} toggleDirection />
+        </Comp.CircleButton>
+      </Comp.NavWrapper>
       {!topicsState ? (
         <>TODO: LOADING WHEEL</>
       ) : (
         menuState && (
-          <UI.MenuWrapper>
+          <Comp.MenuWrapper>
             {topicsState.map(({ title }, index) => (
-              <UI.MenuItem key={index}>{title}</UI.MenuItem>
+              <Comp.MenuItem key={index}>{title}</Comp.MenuItem>
             ))}
-          </UI.MenuWrapper>
+          </Comp.MenuWrapper>
         )
       )}
       {!topicPhotosState ? (
         <>TODO: LOADING WHEEL</>
       ) : (
-        <UI.GalleryWrapper>
-          {topicPhotosState.map(({ urls, description }, index) => (
-            <UI.ImageWrapper key={index}>
-              <Image
-                src={urls.small}
-                alt={description || displayedTopicState.title}
-                layout="fill"
-                objectFit="cover"
-              />
-            </UI.ImageWrapper>
-          ))}
-        </UI.GalleryWrapper>
+        <Comp.GalleryWrapper>
+          <Comp.GalleryInnerWrapper>
+            {topicPhotosState.map(({ urls, description }, index) => (
+              <Comp.ImageWrapper key={index}>
+                <Image
+                  src={urls.small}
+                  alt={description || displayedTopicState.title}
+                  layout="fill"
+                  objectFit="cover"
+                />
+              </Comp.ImageWrapper>
+            ))}
+          </Comp.GalleryInnerWrapper>
+        </Comp.GalleryWrapper>
       )}
-    </UI.PageWrapper>
+    </Comp.PageWrapper>
   ) : (
-    <UI.WipHeading>Watch this space...</UI.WipHeading>
+    <Comp.WipHeading>Watch this space...</Comp.WipHeading>
   );
 };
 
