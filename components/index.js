@@ -5,6 +5,7 @@ import ImageWrapper from "./image-wrapper";
 import GalleryWrapper from "./gallery-wrapper";
 import GalleryInnerWrapper from "./gallery-inner-wrapper";
 import MenuWrapper from "./menu-wrapper";
+import MenuHeader from "./menu-header";
 import NavWrapper from "./nav-wrapper";
 import MenuItem from "./menu-item";
 import { CircleButton } from "./buttons";
@@ -17,6 +18,7 @@ export {
   GalleryWrapper,
   GalleryInnerWrapper,
   MenuWrapper,
+  MenuHeader,
   NavWrapper,
   MenuItem,
   CircleButton,
