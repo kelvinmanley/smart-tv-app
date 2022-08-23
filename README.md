@@ -34,4 +34,22 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to access Smart TV Application.
 
-Happy viewing!
+<br>
+
+## Feature flags
+
+This application utilises feature flags which allows for pushing features through to production safely behind a controlled, access layer. Flags can be toggled per environment.
+
+With the current implementation, there is only one flag which limits access to the application – a "Watch this space..." screen displays when the flag is toggled off.
+
+If you need to toggle a flag for an environment you can either request this to be done by the admin or request admin access to the feature flag service.
+
+Read more at https://www.growthbook.io/
+
+<br>
+
+## Viewing the live application
+
+The Smart TV App can be viewed at https://smart-tv-app-henna.vercel.app/. As mentioned previously, you may need to toggle the production feature flag to view the application.
+
+_Happy viewing!_
