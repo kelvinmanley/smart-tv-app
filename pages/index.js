@@ -2,7 +2,12 @@ import { useFeature } from "@growthbook/growthbook-react";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import * as Comp from "../components";
-import { getTopics, getTopicPhotos } from "../helpers";
+import {
+  getTopics,
+  getTopicPhotos,
+  disableLeftArrow,
+  disableRightArrow,
+} from "../helpers";
 import * as UI from "../ui";
 
 const Home = () => {
@@ -13,6 +18,7 @@ const Home = () => {
   const [displayedTopicState, setDisplayedTopicState] = useState();
   const [topicPhotosState, setTopicPhotosState] = useState();
   const [uiMode, setUiMode] = useState(true);
+  const [imagesColumnIndex, setImagesColumnIndex] = useState(0);
 
   const topicsPage = 2;
   const topicsPerPage = 10;
@@ -52,7 +58,11 @@ const Home = () => {
     <Comp.PageWrapper>
       <Comp.PageBackground mode={uiMode} />
       <Comp.NavWrapper state={menuState}>
-        <Comp.CircleButton mode={uiMode}>
+        <Comp.CircleButton
+          mode={uiMode}
+          onClick={() => setImagesColumnIndex(imagesColumnIndex + 1)}
+          disabled={disableLeftArrow(imagesColumnIndex)}
+        >
           <UI.Arrow mode={uiMode} />
         </Comp.CircleButton>
         <Comp.CircleButton
@@ -64,7 +74,11 @@ const Home = () => {
         <Comp.CircleButton mode={uiMode} onClick={() => setUiMode(!uiMode)}>
           <UI.LightBulb />
         </Comp.CircleButton>
-        <Comp.CircleButton mode={uiMode}>
+        <Comp.CircleButton
+          mode={uiMode}
+          onClick={() => setImagesColumnIndex(imagesColumnIndex - 1)}
+          disabled={disableRightArrow(imagesColumnIndex, window.innerWidth)}
+        >
           <UI.Arrow mode={uiMode} toggleDirection />
         </Comp.CircleButton>
       </Comp.NavWrapper>
@@ -85,7 +99,7 @@ const Home = () => {
         <>TODO: LOADING WHEEL</>
       ) : (
         <Comp.GalleryWrapper>
-          <Comp.GalleryInnerWrapper>
+          <Comp.GalleryInnerWrapper horizontalIndex={imagesColumnIndex}>
             {topicPhotosState.map(({ urls, description }, index) => (
               <Comp.ImageWrapper key={index} mode={menuState}>
                 <Image

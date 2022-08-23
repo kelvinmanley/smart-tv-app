@@ -1,7 +1,8 @@
 import styled from "styled-components";
+import { Colors } from "../ui";
 
 const ImageWrapper = styled.div`
-  background-color: #000;
+  background-color: ${Colors.Grey};
   border: none;
   border-radius: 10px;
   margin: 20px;

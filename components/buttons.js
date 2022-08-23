@@ -29,6 +29,11 @@ const CircleButton = styled.button`
     }
   }
 
+  :disabled {
+    opacity: 0.25;
+    pointer-events: none;
+  }
+
   @media (max-width: 600px) {
     height: 58px;
     width: 58px;
@@ -44,6 +49,11 @@ const CircleButton = styled.button`
     i {
       border-color: ${({ mode }) =>
         mode ? Swatch.hover.light : Swatch.hover.dark};
+    }
+
+    :disabled {
+      opacity: 0.25;
+      pointer-events: auto;
     }
   }
 `;
