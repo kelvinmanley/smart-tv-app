@@ -14,7 +14,7 @@ const Home = () => {
   const [topicPhotosState, setTopicPhotosState] = useState();
   const [uiMode, setUiMode] = useState(true);
 
-  const topicsPage = 1;
+  const topicsPage = 2;
   const topicsPerPage = 10;
 
   const topicPhotosPage = 1;
@@ -72,7 +72,11 @@ const Home = () => {
         <>TODO: LOADING WHEEL</>
       ) : (
         menuState && (
-          <Comp.MenuWrapper>
+          <Comp.MenuWrapper mode={uiMode}>
+            <Comp.MenuHeader
+              mode={uiMode}
+              handleClick={() => setMenuState(false)}
+            />
             {topicsState.map(({ title }, index) => (
               <Comp.MenuItem key={index}>{title}</Comp.MenuItem>
             ))}
