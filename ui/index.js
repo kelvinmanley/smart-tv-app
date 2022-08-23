@@ -1,5 +1,10 @@
 import { LightBulb, Menu, Arrow, Close } from "./icons";
-import { CircleButtonSwatch, PageWrapperSwatch, Colors } from "./swatches";
+import {
+  CircleButtonSwatch,
+  PageWrapperSwatch,
+  PageTitleSwatch,
+  Colors,
+} from "./swatches";
 
 export {
   LightBulb,
@@ -8,5 +13,6 @@ export {
   Close,
   CircleButtonSwatch,
   PageWrapperSwatch,
+  PageTitleSwatch,
   Colors,
 };
