@@ -51,7 +51,7 @@ const Home = () => {
   return pageState ? (
     <Comp.PageWrapper>
       <Comp.PageBackground mode={uiMode} />
-      <Comp.NavWrapper>
+      <Comp.NavWrapper state={menuState}>
         <Comp.CircleButton mode={uiMode}>
           <UI.Arrow mode={uiMode} />
         </Comp.CircleButton>
@@ -71,17 +71,15 @@ const Home = () => {
       {!topicsState ? (
         <>TODO: LOADING WHEEL</>
       ) : (
-        menuState && (
-          <Comp.MenuWrapper mode={uiMode}>
-            <Comp.MenuHeader
-              mode={uiMode}
-              handleClick={() => setMenuState(false)}
-            />
-            {topicsState.map(({ title }, index) => (
-              <Comp.MenuItem key={index}>{title}</Comp.MenuItem>
-            ))}
-          </Comp.MenuWrapper>
-        )
+        <Comp.MenuWrapper mode={uiMode} state={menuState}>
+          <Comp.MenuHeader
+            mode={uiMode}
+            handleClick={() => setMenuState(false)}
+          />
+          {topicsState.map(({ title }, index) => (
+            <Comp.MenuItem key={index}>{title}</Comp.MenuItem>
+          ))}
+        </Comp.MenuWrapper>
       )}
       {!topicPhotosState ? (
         <>TODO: LOADING WHEEL</>
@@ -89,7 +87,7 @@ const Home = () => {
         <Comp.GalleryWrapper>
           <Comp.GalleryInnerWrapper>
             {topicPhotosState.map(({ urls, description }, index) => (
-              <Comp.ImageWrapper key={index}>
+              <Comp.ImageWrapper key={index} mode={menuState}>
                 <Image
                   src={urls.small}
                   alt={description || displayedTopicState.title}
