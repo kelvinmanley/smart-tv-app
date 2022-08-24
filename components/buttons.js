@@ -3,10 +3,10 @@ import { CircleButtonSwatch as Swatch } from "../ui";
 
 const CircleButton = styled.button`
   cursor: pointer;
-  background-color: ${({ mode }) =>
-    mode ? Swatch.backgroundColor.light : Swatch.backgroundColor.dark};
+  background-color: ${({ theme }) =>
+    theme.mode ? Swatch.backgroundColor.light : Swatch.backgroundColor.dark};
   border-radius: 50%;
-  fill: ${({ mode }) => (mode ? Swatch.color.light : Swatch.color.dark)};
+  fill: ${({ theme }) => (theme.mode ? Swatch.color.light : Swatch.color.dark)};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -17,16 +17,17 @@ const CircleButton = styled.button`
   z-index: 10;
 
   :hover {
-    border-color: ${({ mode }) =>
-      mode ? Swatch.hover.light : Swatch.hover.dark};
-    fill: ${({ mode }) => (mode ? Swatch.hover.light : Swatch.hover.dark)};
+    border-color: ${({ theme }) =>
+      theme.mode ? Swatch.hover.light : Swatch.hover.dark};
+    fill: ${({ theme }) =>
+      theme.mode ? Swatch.hover.light : Swatch.hover.dark};
     span {
-      background: ${({ mode }) =>
-        mode ? Swatch.hover.light : Swatch.hover.dark};
+      background: ${({ theme }) =>
+        theme.mode ? Swatch.hover.light : Swatch.hover.dark};
     }
     i {
-      border-color: ${({ mode }) =>
-        mode ? Swatch.hover.light : Swatch.hover.dark};
+      border-color: ${({ theme }) =>
+        theme.mode ? Swatch.hover.light : Swatch.hover.dark};
     }
   }
 
@@ -40,16 +41,17 @@ const CircleButton = styled.button`
     width: 58px;
     margin-bottom: 15px;
 
-    border-color: ${({ mode }) =>
-      mode ? Swatch.hover.light : Swatch.hover.dark};
-    fill: ${({ mode }) => (mode ? Swatch.hover.light : Swatch.hover.dark)};
+    border-color: ${({ theme }) =>
+      theme.mode ? Swatch.hover.light : Swatch.hover.dark};
+    fill: ${({ theme }) =>
+      theme.mode ? Swatch.hover.light : Swatch.hover.dark};
     span {
-      background: ${({ mode }) =>
-        mode ? Swatch.hover.light : Swatch.hover.dark};
+      background: ${({ theme }) =>
+        theme.mode ? Swatch.hover.light : Swatch.hover.dark};
     }
     i {
-      border-color: ${({ mode }) =>
-        mode ? Swatch.hover.light : Swatch.hover.dark};
+      border-color: ${({ theme }) =>
+        theme.mode ? Swatch.hover.light : Swatch.hover.dark};
     }
 
     :disabled {

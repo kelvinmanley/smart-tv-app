@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import styled from "styled-components";
 import { CircleButtonSwatch as Swatch } from "./swatches";
 
@@ -8,23 +7,19 @@ const MenuWrapper = styled.div`
 
 const MenuLines = styled.span`
   display: block;
-  background-color: ${({ mode }) =>
-    mode ? Swatch.color.light : Swatch.color.dark};
+  background-color: ${({ theme }) =>
+    theme.mode ? Swatch.color.light : Swatch.color.dark};
   margin: 6px 0;
   height: 4px;
   width: 100%;
 `;
 
-const Menu = ({ mode }) => (
+const Menu = () => (
   <MenuWrapper>
-    <MenuLines mode={mode} />
-    <MenuLines mode={mode} />
-    <MenuLines mode={mode} />
+    <MenuLines />
+    <MenuLines />
+    <MenuLines />
   </MenuWrapper>
 );
 
 export default Menu;
-
-Menu.propTypes = {
-  mode: PropTypes.bool,
-};

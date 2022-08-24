@@ -3,7 +3,8 @@ import PropTypes from "prop-types";
 import { PageTitleSwatch as Swatch } from "../ui";
 
 const Title = styled.h3`
-  color: ${({ mode }) => (mode ? Swatch.color.light : Swatch.color.dark)};
+  color: ${({ theme }) =>
+    theme.mode ? Swatch.color.light : Swatch.color.dark};
   font-weight: 300;
   position: fixed;
   left: 20px;
@@ -16,8 +17,8 @@ const Title = styled.h3`
   }
 `;
 
-const PageTitle = ({ title = "title", topic = "topic", mode }) => (
-  <Title mode={mode}>
+const PageTitle = ({ title = "title", topic = "topic" }) => (
+  <Title>
     <strong>{title}</strong> | {topic}
   </Title>
 );
@@ -27,5 +28,4 @@ export default PageTitle;
 PageTitle.propTypes = {
   title: PropTypes.string,
   topic: PropTypes.string,
-  mode: PropTypes.bool,
 };
