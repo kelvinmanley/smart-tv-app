@@ -8,7 +8,8 @@ const ArrowWrapper = styled.div`
 `;
 
 const ArrowLines = styled.i`
-  border: solid ${({ mode }) => (mode ? Swatch.color.light : Swatch.color.dark)};
+  border: solid
+    ${({ theme }) => (theme.mode ? Swatch.color.light : Swatch.color.dark)};
   border-width: 0 4px 4px 0;
   display: inline-block;
   padding: 3px;
@@ -20,15 +21,14 @@ const ArrowLines = styled.i`
   height: 22px;
 `;
 
-const Arrow = ({ mode, toggleDirection }) => (
+const Arrow = ({ toggleDirection }) => (
   <ArrowWrapper toggleDirection={toggleDirection}>
-    <ArrowLines mode={mode} toggleDirection={toggleDirection} />
+    <ArrowLines toggleDirection={toggleDirection} />
   </ArrowWrapper>
 );
 
 export default Arrow;
 
 Arrow.propTypes = {
-  mode: PropTypes.bool,
   toggleDirection: PropTypes.bool,
 };

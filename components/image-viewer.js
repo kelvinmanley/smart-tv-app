@@ -24,8 +24,8 @@ const ImageViewerWrapper = styled.div`
 `;
 
 const CloseLayer = styled.div`
-  background-color: ${({ mode }) =>
-    mode ? Swatch.backgroundColor.light : Swatch.backgroundColor.dark};
+  background-color: ${({ theme }) =>
+    theme.mode ? Swatch.backgroundColor.light : Swatch.backgroundColor.dark};
   display: flex;
   justify-content: right;
   height: 100vh;
@@ -33,8 +33,8 @@ const CloseLayer = styled.div`
   opacity: 0.95;
   padding-top: 10px;
   position: fixed;
-  fill: ${({ mode }) =>
-    mode ? Swatch.closeButtonColor.light : Swatch.closeButtonColor.dark};
+  fill: ${({ theme }) =>
+    theme.mode ? Swatch.closeButtonColor.light : Swatch.closeButtonColor.dark};
 `;
 
 const ImageWrapper = styled.div`
@@ -49,7 +49,6 @@ const ImageWrapper = styled.div`
 `;
 
 const ImageViewer = ({
-  mode,
   url,
   description,
   width,
@@ -58,13 +57,12 @@ const ImageViewer = ({
   handleClick,
 }) => (
   <ImageViewerWrapper>
-    <CloseLayer onClick={handleClick} mode={mode}>
+    <CloseLayer onClick={handleClick}>
       <Close handleClick={handleClick} />
     </CloseLayer>
     <PageTitle
       title="Smart TV App"
       topic={description?.slice(0, 22) || topic?.slice(0, 22)}
-      mode={mode}
     />
     <ImageWrapper width={width} height={height}>
       <Image
@@ -82,7 +80,6 @@ const ImageViewer = ({
 export default ImageViewer;
 
 ImageViewer.propTypes = {
-  mode: PropTypes.bool,
   url: PropTypes.string,
   description: PropTypes.string,
   width: PropTypes.number,
