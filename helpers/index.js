@@ -1,7 +1,8 @@
 import unsplash from "./unsplash";
 import getTopics from "./get-topics";
 import getTopicPhotos from "./get-topic-photos";
-import { disableLeftArrow, disableRightArrow } from "./disable-arrow-state";
+import disableLeftArrow from "./disable-left-arrow";
+import disableRightArrow from "./disable-right-arrow";
 
 export {
   unsplash,

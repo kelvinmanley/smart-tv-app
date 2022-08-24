@@ -21,6 +21,7 @@ const Home = () => {
   const [topicPhotosState, setTopicPhotosState] = useState();
   const [uiMode, setUiMode] = useState(true);
   const [imagesColumnIndex, setImagesColumnIndex] = useState(0);
+  const [prevWindowWidth, setPrevWindowWidth] = useState();
   const [imageView, setImageView] = useState({
     on: false,
     url: "",
@@ -35,6 +36,16 @@ const Home = () => {
   const topicPhotosPage = 1;
   const topicPhotosPerPage = 20;
 
+  const handleNavClick = (directionNum) => {
+    // This resets the images position if the window width has been changed
+    // - if window width hasn't changed, shift the images is the intended direction
+    prevWindowWidth !== window.innerWidth
+      ? setImagesColumnIndex(0)
+      : setImagesColumnIndex(imagesColumnIndex + directionNum);
+
+    setPrevWindowWidth(window.innerWidth);
+  };
+
   // Start up actions
   useEffect(() => {
     getTopics(topicsPage, topicsPerPage).then((response) => {
@@ -43,6 +54,7 @@ const Home = () => {
         slug: response.data[0].slug,
         title: response.data[0].title,
       });
+      setPrevWindowWidth(window.innerWidth);
     });
   }, []);
 
@@ -76,7 +88,7 @@ const Home = () => {
         {/* –––––––––––––– Central Navigation Bar –––––––––––––– */}
         <Comp.NavWrapper state={menuState}>
           <Comp.CircleButton
-            onClick={() => setImagesColumnIndex(imagesColumnIndex + 1)}
+            onClick={() => handleNavClick(1)}
             disabled={disableLeftArrow(imagesColumnIndex)}
           >
             <UI.Arrow />
@@ -88,7 +100,7 @@ const Home = () => {
             <UI.LightBulb />
           </Comp.CircleButton>
           <Comp.CircleButton
-            onClick={() => setImagesColumnIndex(imagesColumnIndex - 1)}
+            onClick={() => handleNavClick(-1)}
             disabled={disableRightArrow(imagesColumnIndex, window.innerWidth)}
           >
             <UI.Arrow toggleDirection />
