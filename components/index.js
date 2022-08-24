@@ -11,6 +11,7 @@ import NavWrapper from "./nav-wrapper";
 import MenuItem from "./menu-item";
 import Loader from "./loader";
 import LoaderWrapper from "./loader-wrapper";
+import ImageViewer from "./image-viewer";
 import { CircleButton } from "./buttons";
 
 export {
@@ -27,5 +28,6 @@ export {
   MenuItem,
   Loader,
   LoaderWrapper,
+  ImageViewer,
   CircleButton,
 };

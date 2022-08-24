@@ -1,11 +1,11 @@
 import styled from "styled-components";
-import { PageWrapperSwatch as Swatch, Colors } from "../ui";
+import { PageWrapperSwatch as Swatch } from "../ui";
 
 const PageBackground = styled.div`
   background-image: ${({ mode }) =>
     mode
-      ? `linear-gradient(180deg, ${Colors.MidGrey}, ${Colors.White})`
-      : `linear-gradient(180deg, ${Colors.Black}, ${Colors.Charcoal})`};
+      ? `linear-gradient(180deg, ${Swatch.gradient.light.stop1}, ${Swatch.gradient.light.stop2})`
+      : `linear-gradient(180deg, ${Swatch.gradient.dark.stop1}, ${Swatch.gradient.dark.stop2})`};
   position: fixed;
   height: 100vh;
   width: 100vw;

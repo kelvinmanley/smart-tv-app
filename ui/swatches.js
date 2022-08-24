@@ -23,11 +23,37 @@ const CircleButtonSwatch = {
 };
 
 const PageWrapperSwatch = {
-  background: { light: Colors.LightGrey, dark: Colors.DarkestGrey },
+  gradient: {
+    light: {
+      stop1: Colors.MidGrey,
+      stop2: Colors.White,
+    },
+    dark: {
+      stop1: Colors.Black,
+      stop2: Colors.Charcoal,
+    },
+  },
 };
 
 const PageTitleSwatch = {
   color: { light: Colors.DarkestGrey, dark: Colors.Grey },
 };
 
-export { CircleButtonSwatch, PageWrapperSwatch, PageTitleSwatch, Colors };
+const ImageViewerSwatch = {
+  backgroundColor: {
+    light: Colors.LightGrey,
+    dark: Colors.Charcoal,
+  },
+  closeButtonColor: {
+    light: Colors.DarkerGrey,
+    dark: Colors.Grey,
+  },
+};
+
+export {
+  CircleButtonSwatch,
+  PageWrapperSwatch,
+  PageTitleSwatch,
+  ImageViewerSwatch,
+  Colors,
+};

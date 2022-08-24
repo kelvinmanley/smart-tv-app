@@ -6,6 +6,7 @@ import {
   CircleButtonSwatch,
   PageWrapperSwatch,
   PageTitleSwatch,
+  ImageViewerSwatch,
   Colors,
 } from "./swatches";
 
@@ -17,5 +18,6 @@ export {
   CircleButtonSwatch,
   PageWrapperSwatch,
   PageTitleSwatch,
+  ImageViewerSwatch,
   Colors,
 };
