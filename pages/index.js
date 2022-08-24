@@ -24,7 +24,9 @@ const topicPhotosPerPage = 20;
 const Home = ({ ssrTopicsAndPhotos }) => {
   // Feature flags for toggling app access and SSR
   const featureFlag = useFeature("access").on;
-  const enableServerSideRendering = useFeature("enable_server_side_rendering");
+  const enableServerSideRendering = useFeature(
+    "enable_server_side_rendering"
+  ).on;
 
   const [pageState, setPageState] = useState(false);
   const [menuState, setMenuState] = useState(false);
@@ -107,7 +109,7 @@ const Home = ({ ssrTopicsAndPhotos }) => {
       <Comp.PageWrapper>
         <Comp.PageBackground />
         <Comp.PageTitle
-          title="Smart TV App"
+          title={enableServerSideRendering ? "Smart TV App +" : "Smart TV App"}
           topic={displayedTopicState?.title}
         />
         {/* –––––––––––––– Central Navigation Bar –––––––––––––– */}
