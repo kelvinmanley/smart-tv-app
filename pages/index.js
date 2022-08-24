@@ -7,12 +7,24 @@ import {
   getTopicPhotos,
   disableLeftArrow,
   disableRightArrow,
+  transformPhotoData,
+  extractSlugsAndTitles,
 } from "../helpers";
 import * as UI from "../ui";
 import { ThemeProvider } from "styled-components";
 
-const Home = () => {
+// Determines the topic page and the number of topics to pull from Unsplash
+const topicsPage = 2;
+const topicsPerPage = 10;
+
+// Determines the topic photo page and the number of photos to pull from Unsplash
+const topicPhotosPage = 1;
+const topicPhotosPerPage = 20;
+
+const Home = ({ ssrTopicsAndPhotos }) => {
+  // Feature flags for toggling app access and SSR
   const featureFlag = useFeature("access").on;
+  const enableServerSideRendering = useFeature("enable_server_side_rendering");
 
   const [pageState, setPageState] = useState(false);
   const [menuState, setMenuState] = useState(false);
@@ -30,12 +42,6 @@ const Home = () => {
     height: 0,
   });
 
-  const topicsPage = 2;
-  const topicsPerPage = 10;
-
-  const topicPhotosPage = 1;
-  const topicPhotosPerPage = 20;
-
   const handleNavClick = (directionNum) => {
     // This resets the images position if the window width has been changed
     // - if window width hasn't changed, shift the images is the intended direction
@@ -46,32 +52,51 @@ const Home = () => {
     setPrevWindowWidth(window.innerWidth);
   };
 
-  // Start up actions
+  // On start up, topics are pulled in and set. This is either done via SSR or an API call
   useEffect(() => {
-    getTopics(topicsPage, topicsPerPage).then((response) => {
-      setTopicsState(response.data);
+    if (enableServerSideRendering) {
+      // Extract the slugs and titles from the data
+      const topics = extractSlugsAndTitles(ssrTopicsAndPhotos);
+      setTopicsState(topics);
       setDisplayedTopicState({
-        slug: response.data[0].slug,
-        title: response.data[0].title,
+        slug: topics[0].slug,
+        title: topics[0].title,
       });
-      setPrevWindowWidth(window.innerWidth);
-    });
-  }, []);
-
-  // Pulls images for the displayed topic
-  useEffect(() => {
-    if (displayedTopicState) {
-      getTopicPhotos(
-        displayedTopicState.slug,
-        topicPhotosPage,
-        topicPhotosPerPage
-      ).then((response) => {
-        setTopicPhotosState(response.data);
+    } else {
+      getTopics(topicsPage, topicsPerPage).then((response) => {
+        setTopicsState(response.data);
+        setDisplayedTopicState({
+          slug: response.data[0].slug,
+          title: response.data[0].title,
+        });
       });
     }
-  }, [displayedTopicState]);
+    // Window width is store for responsiveness calculations
+    setPrevWindowWidth(window.innerWidth);
+  }, [ssrTopicsAndPhotos]);
 
-  // useEffect used to manage the serverside rendering conflict
+  // Images are pulled in and set according to the set topic
+  useEffect(() => {
+    if (displayedTopicState) {
+      if (enableServerSideRendering) {
+        const setTopicPhotos = transformPhotoData(
+          ssrTopicsAndPhotos,
+          displayedTopicState.slug
+        );
+        setTopicPhotosState(setTopicPhotos);
+      } else {
+        getTopicPhotos(
+          displayedTopicState.slug,
+          topicPhotosPage,
+          topicPhotosPerPage
+        ).then((response) => {
+          setTopicPhotosState(response.data);
+        });
+      }
+    }
+  }, [displayedTopicState, ssrTopicsAndPhotos]);
+
+  // useEffect utilised to manage a server vs client side rendering conflict
   useEffect(() => {
     setPageState(featureFlag);
   }, [featureFlag]);
@@ -199,3 +224,38 @@ const Home = () => {
 };
 
 export default Home;
+
+// This functions runs on the server side and sends the pre-processed props to the client side
+export const getServerSideProps = async () => {
+  // Get topics and refine to core data
+  const rawTopics = await getTopics(topicsPage, topicsPerPage);
+  const refinedTopics = rawTopics.data.map((data) => ({
+    slug: data.slug,
+    title: data.title,
+  }));
+
+  // Pulls in photos according to topic and combines them with topic data
+  const ssrTopicsAndPhotos = await Promise.all(
+    refinedTopics.map(async (topicData) => {
+      const photoDataByTopic = await getTopicPhotos(
+        topicData.slug,
+        topicPhotosPage,
+        topicPhotosPerPage
+      );
+
+      // Refining the photo data to reduce payload
+      const refinedPhotos = photoDataByTopic.data.map((photoData) => ({
+        description: photoData.description,
+        width: photoData.width,
+        height: photoData.height,
+        urls: { small: photoData.urls.small },
+      }));
+
+      return { ...topicData, ...refinedPhotos };
+    })
+  );
+
+  return {
+    props: { ssrTopicsAndPhotos },
+  };
+};
