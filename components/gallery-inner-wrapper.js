@@ -13,6 +13,8 @@ const GalleryInnerWrapper = styled.div`
   transition: transform 300ms;
 
   @media (max-width: 600px) {
+    min-height: 710px;
+    max-height: 710px;
     padding-left: 7vw;
     padding-top: 5vh;
     transform: ${({ horizontalIndex }) =>
