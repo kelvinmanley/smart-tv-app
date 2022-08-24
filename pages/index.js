@@ -11,7 +11,17 @@ import {
 import * as UI from "../ui";
 import { ThemeProvider } from "styled-components";
 
-const Home = () => {
+const enableServerSideRendering = true;
+
+// Determines the topic page and the number of topics to pull from Unsplash
+const topicsPage = 2;
+const topicsPerPage = 10;
+
+// Determines the topic photo page and the number of photos to pull from Unsplash
+const topicPhotosPage = 1;
+const topicPhotosPerPage = 20;
+
+const Home = ({ ssrTopicsAndPhotos }) => {
   const featureFlag = useFeature("access").on;
 
   const [pageState, setPageState] = useState(false);
@@ -30,12 +40,6 @@ const Home = () => {
     height: 0,
   });
 
-  const topicsPage = 2;
-  const topicsPerPage = 10;
-
-  const topicPhotosPage = 1;
-  const topicPhotosPerPage = 20;
-
   const handleNavClick = (directionNum) => {
     // This resets the images position if the window width has been changed
     // - if window width hasn't changed, shift the images is the intended direction
@@ -46,7 +50,7 @@ const Home = () => {
     setPrevWindowWidth(window.innerWidth);
   };
 
-  // Start up actions
+  // On start up, topics are pulled in and set. The window width is store for responsiveness calculations
   useEffect(() => {
     getTopics(topicsPage, topicsPerPage).then((response) => {
       setTopicsState(response.data);
@@ -58,7 +62,7 @@ const Home = () => {
     });
   }, []);
 
-  // Pulls images for the displayed topic
+  // Images are pulled in and set according to the set topic
   useEffect(() => {
     if (displayedTopicState) {
       getTopicPhotos(
@@ -71,7 +75,7 @@ const Home = () => {
     }
   }, [displayedTopicState]);
 
-  // useEffect used to manage the serverside rendering conflict
+  // useEffect utilised to manage a server vs client side rendering conflict
   useEffect(() => {
     setPageState(featureFlag);
   }, [featureFlag]);
@@ -199,3 +203,37 @@ const Home = () => {
 };
 
 export default Home;
+
+// This functions runs on the server side and sends the pre-processed props to the client side
+export const getServerSideProps = async () => {
+  // Get topics and refine to core data
+  const rawTopics = await getTopics(topicsPage, topicsPerPage);
+  const refinedTopicsData = rawTopics.data.map((data) => ({
+    slug: data.slug,
+    title: data.title,
+  }));
+
+  const tp = await Promise.all(
+    refinedTopicsData.map(async (topicData) => {
+      const photoDataByTopic = await getTopicPhotos(
+        topicData.slug,
+        topicPhotosPage,
+        topicPhotosPerPage
+      );
+
+      const refinedPhotosData = photoDataByTopic.data.map((photoData) => ({
+        description: photoData.description,
+        width: photoData.width,
+        height: photoData.height,
+        urls: { small: photoData.urls.small },
+      }));
+
+      return { ...topicData, ...refinedPhotosData };
+    })
+  );
+
+  const ssrTopicsAndPhotos = tp;
+  return {
+    props: { ssrTopicsAndPhotos },
+  };
+};
