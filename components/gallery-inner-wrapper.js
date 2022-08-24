@@ -5,7 +5,7 @@ const GalleryInnerWrapper = styled.div`
   flex-direction: column;
   flex-wrap: wrap;
   padding-left: 5vw;
-  padding-top: 5vh;
+  padding-top: 7vh;
   height: 750px;
   width: fit-content;
   transform: ${({ horizontalIndex }) =>
