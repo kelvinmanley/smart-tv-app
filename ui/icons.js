@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import styled from "styled-components";
 import { CircleButtonSwatch as Swatch } from "./swatches";
 
@@ -65,3 +66,17 @@ const Arrow = ({ mode, toggleDirection }) => (
 );
 
 export { LightBulb, Menu, Arrow, Close };
+
+LightBulb.propTypes = {
+  iconSize: PropTypes.string,
+};
+Close.propTypes = {
+  handleClick: PropTypes.func,
+};
+Menu.propTypes = {
+  mode: PropTypes.bool,
+};
+Arrow.propTypes = {
+  mode: PropTypes.bool,
+  toggleDirection: PropTypes.bool,
+};

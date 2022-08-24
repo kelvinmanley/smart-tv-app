@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 import styled from "styled-components";
 import { Close } from "../ui";
 
@@ -14,3 +16,7 @@ const MenuHeader = ({ handleClick }) => (
 );
 
 export default MenuHeader;
+
+MenuHeader.propTypes = {
+  handleClick: PropTypes.func,
+};
