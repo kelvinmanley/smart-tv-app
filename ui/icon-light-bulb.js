@@ -1,41 +1,4 @@
 import PropTypes from "prop-types";
-import styled from "styled-components";
-import { CircleButtonSwatch as Swatch } from "./swatches";
-
-const MenuWrapper = styled.div`
-  width: 55%;
-`;
-
-const MenuLines = styled.span`
-  display: block;
-  background-color: ${({ mode }) =>
-    mode ? Swatch.color.light : Swatch.color.dark};
-  margin: 6px 0;
-  height: 4px;
-  width: 100%;
-`;
-
-const ArrowWrapper = styled.div`
-  padding: ${({ toggleDirection }) =>
-    toggleDirection ? "0 13% 0 0" : "0 0 0 13%"};
-`;
-
-const ArrowLines = styled.i`
-  border: solid ${({ mode }) => (mode ? Swatch.color.light : Swatch.color.dark)};
-  border-width: 0 4px 4px 0;
-  display: inline-block;
-  padding: 3px;
-  transform: ${({ toggleDirection }) =>
-    toggleDirection ? "rotate(-45deg)" : "rotate(135deg)"};
-  -webkit-transform: ${({ toggleDirection }) =>
-    toggleDirection ? "rotate(-45deg)" : "rotate(135deg)"};
-  width: 22px;
-  height: 22px;
-`;
-
-const CloseWrapper = styled.div`
-  cursor: pointer;
-`;
 
 const LightBulb = ({ iconSize = "60" }) => (
   <svg width={iconSize * 0.6} height={iconSize} viewBox="0 0 118 118">
@@ -43,40 +6,8 @@ const LightBulb = ({ iconSize = "60" }) => (
   </svg>
 );
 
-const Close = ({ handleClick }) => (
-  <CloseWrapper>
-    <svg onClick={handleClick} width="50" height="50" viewBox="0 0 30 30">
-      <path d="M18.717 6.697l-1.414-1.414-5.303 5.303-5.303-5.303-1.414 1.414 5.303 5.303-5.303 5.303 1.414 1.414 5.303-5.303 5.303 5.303 1.414-1.414-5.303-5.303z" />
-    </svg>
-  </CloseWrapper>
-);
-
-const Menu = ({ mode }) => (
-  <MenuWrapper>
-    <MenuLines mode={mode} />
-    <MenuLines mode={mode} />
-    <MenuLines mode={mode} />
-  </MenuWrapper>
-);
-
-const Arrow = ({ mode, toggleDirection }) => (
-  <ArrowWrapper toggleDirection={toggleDirection}>
-    <ArrowLines mode={mode} toggleDirection={toggleDirection} />
-  </ArrowWrapper>
-);
-
-export { LightBulb, Menu, Arrow, Close };
+export default LightBulb;
 
 LightBulb.propTypes = {
   iconSize: PropTypes.string,
-};
-Close.propTypes = {
-  handleClick: PropTypes.func,
-};
-Menu.propTypes = {
-  mode: PropTypes.bool,
-};
-Arrow.propTypes = {
-  mode: PropTypes.bool,
-  toggleDirection: PropTypes.bool,
 };

@@ -64,7 +64,6 @@ const Home = () => {
         topic={displayedTopicState?.title}
         mode={uiMode}
       />
-
       {/* –––––––––––––– Central Navigation Bar –––––––––––––– */}
       <Comp.NavWrapper state={menuState}>
         <Comp.CircleButton
@@ -88,36 +87,44 @@ const Home = () => {
           <UI.Arrow mode={uiMode} toggleDirection />
         </Comp.CircleButton>
       </Comp.NavWrapper>
-      {!topicsState ? (
-        <>TODO: LOADING WHEEL</>
-      ) : (
-        /* –––––––––––––– Menu Side Bar –––––––––––––– */
-        <Comp.MenuWrapper mode={uiMode} state={menuState}>
-          <Comp.MenuHeader
-            mode={uiMode}
-            handleClick={() => setMenuState(false)}
-          />
-          {topicsState.map(({ title, slug }, index) => (
-            <Comp.MenuItem
-              key={index}
-              onClick={() => {
-                console.log(slug);
-                setDisplayedTopicState({
-                  slug,
-                  title,
-                });
-                setMenuState(false);
-              }}
-            >
-              {title}
-            </Comp.MenuItem>
-          ))}
-        </Comp.MenuWrapper>
-      )}
+      {/* –––––––––––––– Menu Side Bar –––––––––––––– */}
+      <Comp.MenuWrapper mode={uiMode} state={menuState}>
+        <Comp.MenuHeader
+          mode={uiMode}
+          handleClick={() => setMenuState(false)}
+        />
+        {!topicsState ? (
+          <Comp.LoaderWrapper>
+            <Comp.Loader />
+          </Comp.LoaderWrapper>
+        ) : (
+          <>
+            {topicsState.map(({ title, slug }, index) => (
+              <Comp.MenuItem
+                key={index}
+                onClick={() => {
+                  console.log(slug);
+                  setDisplayedTopicState({
+                    slug,
+                    title,
+                  });
+                  setMenuState(false);
+                  setImagesColumnIndex(0);
+                }}
+              >
+                {title}
+              </Comp.MenuItem>
+            ))}
+          </>
+        )}
+      </Comp.MenuWrapper>
+
+      {/* –––––––––––––– Image Gallery Grid –––––––––––––– */}
       {!topicPhotosState ? (
-        <>TODO: LOADING WHEEL</>
+        <Comp.LoaderWrapper>
+          <Comp.Loader />
+        </Comp.LoaderWrapper>
       ) : (
-        /* –––––––––––––– Image Gallery Grid –––––––––––––– */
         <Comp.GalleryWrapper>
           <Comp.GalleryInnerWrapper horizontalIndex={imagesColumnIndex}>
             {topicPhotosState.map(({ urls, description }, index) => (
