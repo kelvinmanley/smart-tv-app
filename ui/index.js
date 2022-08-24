@@ -1,4 +1,7 @@
-import { LightBulb, Menu, Arrow, Close } from "./icons";
+import LightBulb from "./icon-light-bulb";
+import Menu from "./icon-menu";
+import Arrow from "./icon-arrow";
+import Close from "./icon-close";
 import {
   CircleButtonSwatch,
   PageWrapperSwatch,
