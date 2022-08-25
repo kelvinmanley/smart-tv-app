@@ -6,7 +6,7 @@ const spin = keyframes`
   100% { -webkit-transform: rotate(360deg); }
 `;
 
-const LoaderWrapper = styled.div`
+const Loader = styled.div`
   border: 8px solid ${Colors.MidGrey};
   border-radius: 50%;
   border-top: 8px solid ${Colors.Orange};
@@ -15,7 +15,5 @@ const LoaderWrapper = styled.div`
   -webkit-animation: ${spin} 2s linear infinite;
   animation: ${spin} 2s linear infinite;
 `;
-
-const Loader = () => <LoaderWrapper />;
 
 export default Loader;

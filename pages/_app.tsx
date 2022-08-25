@@ -5,6 +5,7 @@ import axios from "axios";
 
 const growthbook = new GrowthBook();
 
+// Gets the feature flag data and updates the instance
 const setFlagData = async () => {
   const response = await axios.get(
     `${process.env.NEXT_PUBLIC_FEATURE_FLAG_CALL}`
