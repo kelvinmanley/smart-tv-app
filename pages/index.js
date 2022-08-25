@@ -106,7 +106,7 @@ const Home = ({ ssrTopicsAndPhotos }) => {
   return pageState ? (
     // ThemeProvider passed props via context
     <ThemeProvider theme={{ mode: uiMode }}>
-      <Comp.PageWrapper>
+      <>
         <Comp.PageBackground />
         <Comp.PageTitle
           title={enableServerSideRendering ? "Smart TV App +" : "Smart TV App"}
@@ -217,7 +217,7 @@ const Home = ({ ssrTopicsAndPhotos }) => {
           />
         )}
         ;
-      </Comp.PageWrapper>
+      </>
     </ThemeProvider>
   ) : (
     /* –––––––––––––– Temporary Page –––––––––––––– */

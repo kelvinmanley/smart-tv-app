@@ -62,7 +62,7 @@ const ImageViewer = ({
     </CloseLayer>
     <PageTitle
       title="Smart TV App"
-      topic={description?.slice(0, 22) || topic?.slice(0, 22)}
+      topic={description?.slice(0, 22) || topic?.slice(0, 22)} // Limits descriptions to 22 characters
     />
     <ImageWrapper width={width} height={height}>
       <Image
