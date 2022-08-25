@@ -4,4 +4,4 @@ const extractSlugsAndTitles = (topicsAndPhotos) =>
     title: data.title,
   }));
 
-export default extractSlugsAndTitles;
+module.exports = extractSlugsAndTitles;

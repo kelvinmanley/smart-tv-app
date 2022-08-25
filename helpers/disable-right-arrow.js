@@ -17,4 +17,4 @@ const disableRightArrow = (imagesColumnIndex, windowWidth) => {
   return false;
 };
 
-export default disableRightArrow;
+module.exports = disableRightArrow;
