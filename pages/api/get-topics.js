@@ -1,19 +1,18 @@
-import attempt from "@assertchris/attempt-promise";
-import { unsplash } from "../../helpers";
+const { unsplash } = require("../../helpers");
 
 const GetTopics = async (req, res) => {
-  const [error, response] = await attempt(
-    unsplash.topics.list({
+  let response = undefined;
+
+  try {
+    response = await unsplash.topics.list({
       page: req.query.page,
       perPage: req.query.perPage,
-    })
-  );
-
-  if (error) {
+    });
+  } catch (err) {
     return res.status(400).json({ error: "Failure fetching topics" });
   }
 
   res.status(200).json({ topics: response.response.results });
 };
 
-export default GetTopics;
+module.exports = GetTopics;
