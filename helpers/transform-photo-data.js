@@ -10,4 +10,4 @@ const transformPhotoData = (topicsAndPhotos, topicToDisplay) => {
   return photoValues.slice(0, 20);
 };
 
-export default transformPhotoData;
+module.exports = transformPhotoData;

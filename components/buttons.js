@@ -5,6 +5,7 @@ const CircleButton = styled.button`
   cursor: pointer;
   background-color: ${({ theme }) =>
     theme.mode ? Swatch.backgroundColor.light : Swatch.backgroundColor.dark};
+  border: none;
   border-radius: 50%;
   fill: ${({ theme }) => (theme.mode ? Swatch.color.light : Swatch.color.dark)};
   display: flex;

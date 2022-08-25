@@ -3,4 +3,4 @@ const disableLeftArrow = (imagesColumnIndex) => {
   return false;
 };
 
-export default disableLeftArrow;
+module.exports = disableLeftArrow;
