@@ -10,6 +10,7 @@ const getTopics = async (page, perPage) => {
   } catch (error) {
     throw { message: "Unable to get topics", error };
   }
+
   return { data: response.data.topics };
 };
 
